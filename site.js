@@ -42,12 +42,11 @@ function mmg_google_docs(id, callback) {
 		return callback(features);
 	}
 
-	var url = 'https://spreadsheets.google.com/feeds/list/' + id + '/1/public/values?alt=json-in-script&callback=callback';
-
+	var url = 'https://fusiontables.googleusercontent.com/fusiontables/api/query?sql=SELECT+*+FROM+' + id;
 	reqwest({
 		url: url,
 		type: 'jsonp',
-		jsonpCallback: 'callback',
+		jsonpCallback: 'jsonCallback',
 		success: response,
 		error: response
 	});
@@ -65,7 +64,7 @@ if (window.location.href.split('#')[1].replace(/\//g, "").replace(/\./g, "") == 
 	lon: -74.0143
 });
 
-mmg_google_docs('0AhK1LcvMqvlJdHhQbkFhaVBOQlRPVTZFdy1LS2hRcUE', function(features) {
+mmg_google_docs('13OpCFyJDjWKJMqZt7kJSNmtKBX8WxShIfnbL4KU', function(features) {
  features = features.map(function(f) {
 		f.properties.title = f.properties.title,
 	    f.properties.description = f.properties.description;
