@@ -1,0 +1,152 @@
+/* ###### Basics ###### */
+
+body {
+  font: normal 16px/1.5 'Helvetica Neue',Helvetica,sans-serif;
+  color:white;
+  }
+
+h1 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  }
+
+p, ul {
+  margin-bottom: 15px;
+  }
+
+.description li {
+  margin-left: 20px;
+  margin-bottom: 5px;
+  list-style: disc;
+}
+
+a {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  }
+
+a:hover { text-decoration: underline;}
+
+#map {
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index: 0;
+  }
+
+/* ###### Content Box ###### */
+
+.description {
+  position: absolute;
+  display: none;
+  right: 0;
+  top: 0px;
+  bottom: 70px;
+  z-index: 1;
+  padding: 15px;
+  width: 280px;
+  background:rgba(0,0,0,.8);
+  overflow-y: auto;
+  border-bottom: 1px solid #333333;
+  }
+
+.description#description-0,
+.description#description-4 {
+  position: relative;
+  margin-top: 60px;
+  height: auto;
+  border-bottom: 0;
+  }
+  .description#description-4 {
+    margin: auto;
+    margin-top: 60px;
+    }
+
+.description.active {
+  display: block;
+  }
+
+.description::-webkit-scrollbar-thumb,
+.description::scrollbar-thumb {
+  background: white;
+}
+.description::-webkit-scrollbar,
+.description::scrollbar {
+background: transparent;
+width: 10px;
+  }
+
+/* ###### Map Controls ###### */
+
+#map-ui {
+  display: block;
+  position: absolute;
+  display: block;
+  bottom: 0px;
+  right: 0;
+  width: 280px;
+  height: 40px;
+  padding: 15px;
+  z-index: 1;
+  background:rgba(0,0,0,.8);
+  }
+  #map-ui.hide { display: none;}
+	#map-ui li,
+  #start {
+		display:block;
+    float: left;
+    background: white;
+    color: #333;
+    }
+  #map-ui a,
+  #start  {
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    display: block;
+    width:140px;
+    text-decoration: none;
+    color: #333;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    }
+    #map-ui a#forward {
+      border-left: 1px solid #333;
+      width: 139px;
+      }
+    #map-ui a:hover,
+    #start:hover {
+      background: #333;
+      color: white;
+      text-decoration: none;
+    }
+    .description a {
+	   line-height:16pt;
+	   color:#26a0e4;
+     }
+
+#description-4 #start { width: 160px;}
+
+.zoombox-box { background-color:#fff}
+
+.zoomer {
+  top:15px;
+  left: 15px;
+}
+.zoomin { left: 44px;}
+
+.marker-popup {
+  border: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+.marker-popup::before {
+  border-top-color: white !important;
+  border-width: 18px;
+  margin-left: -18px;
+  }
