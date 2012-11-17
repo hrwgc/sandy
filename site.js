@@ -7,24 +7,52 @@ function mmg_google_docs(id, callback) {
 		var features = [],
 			latfield = '',
 			lonfield = '';
-		if (!x || !x.feed) return features;
+		if (!x || !x.data) return features;
 
-		for (var f in x.feed.entry[0]) {
+		for (var f in x.data[0]) {
 			if (f.match(/\$Lat/i)) latfield = f;
 			if (f.match(/\$Lon/i)) lonfield = f;
 		}
 
-		for (var i = 0; i < x.feed.entry.length; i++) {
-			var entry = x.feed.entry[i];
+		for (var i = 0; i < x.data.length; i++) {
+			var entry = x.data[i];
+			var symbol = "star-stroked";
+			var mc =  "#333";
+
+			            switch (entry['type marker']) {
+			              case "large_red":
+			                mc =  "#da521f";
+			                break;
+			              case "large_green":
+			              // change color to green
+			                mc = "#22b573";
+			              break;
+			              case "large_blue":
+			                // change color to blue
+			          mc =  "#0085bf";
+			          break;
+			              case "large_purple":
+			                // change color to purple
+			          mc =  "#60f";
+			          break;
+			        case "dining":
+			          symbol = "restaurant";
+			          mc = "#ffcd67";
+			          break;      
+			              case "rail":
+			          symbol = "bus";
+			          break;
+			            }
+			
 			var feature = {
 				geometry: {
 					type: 'Point',
 					coordinates: []
 				},
 				properties: {
-					"marker-color": "#da521f",
+					"marker-color": mc,
 					"marker-size": "small",
-					"marker-symbol": "star-stroked",
+					"marker-symbol": symbol,
 					"title": '<h3>' + entry['title'] + '</h3>',
 					"description":  '<p>' + entry['description'] + '</p>'
 				}
