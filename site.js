@@ -42,11 +42,10 @@ function mmg_google_docs(id, callback) {
 		return callback(features);
 	}
 
-	var url = 'https://fusiontables.googleusercontent.com/fusiontables/api/query?sql=SELECT+*+FROM+' + id;
+	var url = 'http://ft2json.appspot.com/q?sql=SELECT%20*%20FROM%20'+ id + '&limit=150&jsonp=jsonCallback';
 	reqwest({
 		url: url,
 		type: 'jsonp',
-		jsonpCallback: 'jsonCallback',
 		success: response,
 		error: response
 	});
