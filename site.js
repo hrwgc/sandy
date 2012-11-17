@@ -55,7 +55,7 @@ function mmg_google_docs(id, callback) {
 
 var map = mapbox.map('map'),
 	layers = document.getElementById('layers');
-map.addLayer(mapbox.layer().url('http://a.tiles.mapbox.com/v3/herwig.map-dlouakvr,geoeye.map-amysswvq.jsonp').composite(true));
+map.addLayer(mapbox.layer().url('http://a.tiles.mapbox.com/v3/herwig.map-dlouakvr,geoeye.map-amysswvq,herwig.map-qjaygbf8.jsonp').composite(true));
 map.ui.hash.add();
 map.ui.zoomer.add();
 map.ui.zoombox.add();
