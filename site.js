@@ -3,14 +3,13 @@ function mmg_google_docs(id, callback) {
 		throw 'CSV: reqwest required for mmg_csv_url';
 	}
 	function response(x) {
-		console.log(x);
 		var features = [],
 			latfield = '',
 			lonfield = '';
 		if (!x || !x.data) return features;
-
 		for (var i = 0; i < x.data.length; i++) {			
 			var entry = x.data[i];
+			if (entry['hide_on_map'] != 'yes')
 			var symbol = "star-stroked";
 			var mc = "#333";
 			switch (entry['type marker']) {
@@ -37,6 +36,16 @@ function mmg_google_docs(id, callback) {
 				symbol = "bus";
 				break;
 		}
+		var entryLink = "";
+				if (entry['Link'].length < 4) 
+				{
+				    entryLink = "";
+				}
+				else
+				{
+				    entryLink = "<a href='" + entry['Link'] + "'>Website</a>"
+			}
+			
 			var feature = {
 				geometry: {
 					type: 'Point',
@@ -47,7 +56,13 @@ function mmg_google_docs(id, callback) {
 					"marker-size": "small",
 					"marker-symbol": symbol,
 					"title": "<h3 class='map-title'>" + entry['Title'] + "</h3>",
-					"description": "<p>" + entry['Description'] + "</p>"
+					"description": "<ul class='map'><li class='map address'><span>Address: </span>" + entry['Address'] + "</li>"
+					+ "<li class='map desc'><span>Description: </span>" + entry['Description'] + "</li>" 
+					+ "<li class='map link'><span>Link: </span>" + entryLink + "</li>" 
+					+ "<li class='map dateandtime'><span>Date and Times: </span>" + entry['DateAndTimes'] + "</li>" 
+					+ "<li class='map contact'><span>Contact: </span>" + entry['Contact'] + "</li>" 
+					+ "<li class='map status'><span></span>" + entry['Status'] + "</li>" 
+					+ "<li class='map timestamp'><span>Last Updated: </span>" + entry['Timestamp'] + "</li></ul>"
 				}
 			};			
 			// if (feature.geometry.coordinates.length == 2) 
@@ -72,6 +87,8 @@ map.addLayer(mapbox.layer().url('http://a.tiles.mapbox.com/v3/herwig.map-dlouakv
 map.ui.hash.add();
 map.ui.zoomer.add();
 map.ui.zoombox.add();
+map.ui.attribution.add();
+
 map.setZoomRange(10, 19);
 if (window.location.href.split('#')[1].replace(/\//g, "").replace(/\./g, "") == "00000") map.zoom(16).center({
 	lat: 40.7065,
@@ -81,10 +98,12 @@ if (window.location.href.split('#')[1].replace(/\//g, "").replace(/\./g, "") == 
 mmg_google_docs('13OpCFyJDjWKJMqZt7kJSNmtKBX8WxShIfnbL4KU', function(features) {
 	features = features.map(function(f) {
 		f.properties.title = f.properties.title,
-		f.properties.description = f.properties.description;
+		f.properties.description = f.properties.description,
+		f.properties.link = f.properties.link;
+		
 		return f;
 	});
 	var markerLayer = mapbox.markers.layer().features(features);
-	mapbox.markers.interaction(markerLayer);
+	mapbox.markers.interaction(markerLayer).hideOnMove(false);
 	map.addLayer(markerLayer);
 });

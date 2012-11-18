@@ -150,3 +150,12 @@ width: 10px;
   border-width: 18px;
   margin-left: -18px;
   }
+li.map { 
+	font-size:13px;
+	}
+li.map span { 
+	font-weight:600;
+	}
+	
+ul.map { 
+	list-style-type:none;}
