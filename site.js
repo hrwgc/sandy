@@ -7,6 +7,7 @@ function mmg_google_docs(id, callback) {
 		var features = [],
 			latfield = '',
 			lonfield = '';
+		x = $.parseJSON(x);
 		if (!x || !x.data) return features;
 
 		for (var f in x.data[0]) {
@@ -17,33 +18,31 @@ function mmg_google_docs(id, callback) {
 		for (var i = 0; i < x.data.length; i++) {
 			var entry = x.data[i];
 			var symbol = "star-stroked";
-			var mc =  "#333";
-
-			            switch (entry['type marker']) {
-			              case "large_red":
-			                mc =  "#da521f";
-			                break;
-			              case "large_green":
-			              // change color to green
-			                mc = "#22b573";
-			              break;
-			              case "large_blue":
-			                // change color to blue
-			          mc =  "#0085bf";
-			          break;
-			              case "large_purple":
-			                // change color to purple
-			          mc =  "#60f";
-			          break;
-			        case "dining":
-			          symbol = "restaurant";
-			          mc = "#ffcd67";
-			          break;      
-			              case "rail":
-			          symbol = "bus";
-			          break;
-			            }
-			
+			var mc = "#333";
+			switch (entry['type marker']) {
+			case "large_red":
+				mc = "#da521f";
+				break;
+			case "large_green":
+				// change color to green
+				mc = "#22b573";
+				break;
+			case "large_blue":
+				// change color to blue
+				mc = "#0085bf";
+				break;
+			case "large_purple":
+				// change color to purple
+				mc = "#60f";
+				break;
+			case "dining":
+				symbol = "restaurant";
+				mc = "#ffcd67";
+				break;
+			case "rail":
+				symbol = "bus";
+				break;
+			}
 			var feature = {
 				geometry: {
 					type: 'Point',
@@ -54,7 +53,7 @@ function mmg_google_docs(id, callback) {
 					"marker-size": "small",
 					"marker-symbol": symbol,
 					"title": '<h3>' + entry['title'] + '</h3>',
-					"description":  '<p>' + entry['description'] + '</p>'
+					"description": '<p>' + entry['description'] + '</p>'
 				}
 			};
 			for (var y in entry) {
@@ -69,16 +68,16 @@ function mmg_google_docs(id, callback) {
 
 		return callback(features);
 	}
-
-	var url = 'http://ft2json.appspot.com/q?sql=SELECT%20*%20FROM%20'+ id + '&limit=150&jsonp=jsonCallback';
-	reqwest({
+	//	var url = 'https://fusiontables.googleusercontent.com/fusiontables/api/query?sql=SELECT+*+FROM+'+ id + '&alt=jsonp&typed=true&jsonCallback=callback';
+	var url = 'http://ft2json.appspot.com/q?sql=SELECT%20*%20FROM%20' + id + '&limit=150&jsonp=callback';
+	$.ajax({
 		url: url,
-		type: 'jsonp',
+		dataType: 'jsonp',
+		jsonpCallback: 'callback',
 		success: response,
 		error: response
 	});
 }
-
 var map = mapbox.map('map'),
 	layers = document.getElementById('layers');
 map.addLayer(mapbox.layer().url('http://a.tiles.mapbox.com/v3/herwig.map-dlouakvr,geoeye.map-amysswvq,herwig.map-qjaygbf8.jsonp').composite(true));
@@ -92,12 +91,10 @@ if (window.location.href.split('#')[1].replace(/\//g, "").replace(/\./g, "") == 
 });
 
 mmg_google_docs('13OpCFyJDjWKJMqZt7kJSNmtKBX8WxShIfnbL4KU', function(features) {
- features = features.map(function(f) {
-		f.properties.title = f.properties.title,
-	    f.properties.description = f.properties.description;
+	features = features.map(function(f) {
+		f.properties.title = f.properties.title, f.properties.description = f.properties.description;
 		return f;
 	});
-
 	var markerLayer = mapbox.markers.layer().features(features);
 	mapbox.markers.interaction(markerLayer);
 	map.addLayer(markerLayer);
