@@ -43,7 +43,7 @@ function mmg_google_docs(id, callback) {
 				}
 				else
 				{
-				    entryLink = "<a href='" + entry['Link'] + "'>Website</a>"
+				    entryLink = "<a href='" + entry['Link'] + "' target='_blank'>Website</a>"
 			}
 			
 			var feature = {
