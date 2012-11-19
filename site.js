@@ -6,8 +6,6 @@ function mmg_google_docs(id, callback) {
 	if (typeof reqwest === 'undefined') {
 		throw 'CSV: reqwest required for mmg_csv_url';
 	}
-	var savedResponse = {};
-
 	function response(x) {
 		var features = [],
 			latfield = '',
@@ -17,6 +15,7 @@ function mmg_google_docs(id, callback) {
 			var entry = x.data[i];
 			if (entry['hide_on_map'] != 'yes') var symbol = "star-stroked";
 			var mc = "#333";
+			var ms = "small";
 			switch (entry['type marker']) {
 			case "large_red":
 				mc = "#da521f";
@@ -39,6 +38,8 @@ function mmg_google_docs(id, callback) {
 				break;
 			case "rail":
 				symbol = "bus";
+				ms = "medium";
+				mc = "#ffcc00"
 				break;
 			}
 			var entryLink = "";
@@ -47,7 +48,7 @@ function mmg_google_docs(id, callback) {
 			} else {
 				entryLink = "<a href='" + entry['Link'] + "' target='_blank'>Website</a>"
 			}
-			var titleId = entry['Title'].replace(/[^A-Za-z0-9]/g, '-').toLowerCase();
+			var titleId = entry['Title'].replace(/[^A-Za-z0-9]/g, '-').replace(/\-+/g,'-').replace(/\-$/g,'').toLowerCase();
 			var feature = {
 				geometry: {
 					type: 'Point',
@@ -55,7 +56,7 @@ function mmg_google_docs(id, callback) {
 				},
 				properties: {
 					"marker-color": mc,
-					"marker-size": "small",
+					"marker-size": ms,
 					"marker-symbol": symbol,
 					"title": "<h3 class='map-title'>" + entry['Title'] + "</h3>",
 					"description": "<ul class='map'><li class='map address'><span>Address: </span>" + entry['Address'] + "</li>" + "<li class='map desc'><span>Description: </span>" + entry['Description'] + "</li>" + "<li class='map link'><span>Link: </span>" + entryLink + "</li>" + "<li class='map dateandtime'><span>Date and Times: </span>" + entry['DateAndTimes'] + "</li>" + "<li class='map contact'><span>Contact: </span>" + entry['Contact'] + "</li>" + "<li class='map status'><span></span>" + entry['Status'] + "</li>" + "<li class='map timestamp'><span>Last Updated: </span>" + entry['Timestamp'] + "</li></ul>" + "<div class='navId hidden' id ='" + titleId + "'></div",
@@ -89,16 +90,6 @@ map.ui.zoomer.add();
 map.ui.zoombox.add();
 map.ui.attribution.add();
 map.setZoomRange(10, 19);
-if (window.location.hash.length == 1) {
-	if (window.location.href.split('#')[1].split('/').length == 3) {
-		if (window.location.href.split('#')[1].replace(/\//g, "").replace(/\./g, "") == "00000") {
-			map.zoom(16).center({
-				lat: 40.7065,
-				lon: -74.0143
-			});
-		}
-	}
-}
 if (window.location.hash.length == 0) {
 	map.ui.hash.add();
 	map.zoom(16).center({
@@ -107,7 +98,6 @@ if (window.location.hash.length == 0) {
 	});
 
 }
-
 
 mmg_google_docs('13OpCFyJDjWKJMqZt7kJSNmtKBX8WxShIfnbL4KU', function(features) {
 	features = features.map(function(f) {
@@ -118,37 +108,67 @@ mmg_google_docs('13OpCFyJDjWKJMqZt7kJSNmtKBX8WxShIfnbL4KU', function(features) {
 	markerLayer.factory(function(m) {
 		var elem = mapbox.markers.simplestyle_factory(m);
 		MM.addEvent(elem, 'click', function(e) {
-			map.ui.hash.remove()
-			map.ease.location({
-				lat: m.geometry.coordinates[1],
-				lon: m.geometry.coordinates[0]
-			}).zoom(map.zoom());
-			map.center({
-				lat: m.geometry.coordinates[1],
-				lon: m.geometry.coordinates[0]
-			});
-			window.location.hash = m.properties.entryHref
+			//map.ui.hash.remove()
+			map.zoom(13).center({
+				lat: Math.round(m.geometry.coordinates[1] * 1000)/1000,
+				lon: Math.round(m.geometry.coordinates[0]*1000)/1000
+		            }).zoom(map.zoom()).optimal();
+					//window.location.hash = m.properties.entryHref
 		});
 		return elem;
 	});
 	map.addLayer(markerLayer);
 	mapbox.markers.interaction(markerLayer).hideOnMove(false);
-	var m = $.sandyJSON.result
-	if (window.location.href.split('#').length == 2) {
-		if (window.location.href.split('#')[1].split('/').length = 1) {
-			map.ui.hash.remove()
-			var hash = window.location.href.split('#')[1]
+	// var m = $.sandyJSON.result
+	// // if (window.location.href.split('#').length == 2) {
+	// // 	if (window.location.href.split('#')[1].split('/').length = 1) {
+	// // 		map.ui.hash.remove()
+	// 		var hash = window.location.href.split('#')[1]
+	// 
+	// 			if (hash == entry.properties['entryHref']) {
+	// 				map.zoom(15).center({
+	// 					lat: (Math.round(entry.geometry.coordinates[1]*1000)/1000),
+	// 					lon:  (Math.round(entry.geometry.coordinates[0]*1000)/1000)
+	// 				});
+	// 				var ix = m.indexOf(entry)
+	// 	}
+	// }
+	// 
+	if (window.location.hash.length != "") {
+		if (window.location.href.split('#')[1].split('/').length == 3) {
+			var eLat = window.location.href.split('#')[1].split('/')[1]
+			var eLon = window.location.href.split('#')[1].split('/')[2]
+			var eZoom = window.location.href.split('#')[1].split('/')[0].split('.')[0]
+			var m = $.sandyJSON.result
 			for (var i = 0; i < m.length; i++) {
 				var entry = m[i]
-				if (hash == entry.properties['entryHref']) {
-					map.zoom(14).center({
-						lat: entry.geometry.coordinates[1],
-						lon: entry.geometry.coordinates[0]
-					});
-					var ix = m.indexOf(entry)
-				}
+				var entryLat = Math.round(entry.geometry.coordinates[1]*1000)/1000;
+				var entryLon = Math.round(entry.geometry.coordinates[0]*1000)/1000;
+				if (entryLat == eLat) {
+					if (entryLon == eLon) {
+						console.log(entry);
+						map.ui.hash.add();
+						map.zoom(eZoom).center({
+							lat: eLat,
+							lon: eLon
+						});
+							// var ix = m.indexOf(entry)
+							// 						
+							// 						map.markerLayer.markers()[ix].showTooltip();
+											}
+			map.ui.hash.add();
+			map.zoom(eZoom).center({
+				lat: eLat,
+				lon: eLon
+			});
+			if (window.location.href.split('#')[1].replace(/\//g, "").replace(/\./g, "") == "00000") {
+				map.zoom(16).center({
+					lat: 40.7065,
+					lon: -74.0143
+				});
 			}
 		}
 	}
-
+	
+}}
 });
