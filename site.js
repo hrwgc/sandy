@@ -46,8 +46,8 @@ function mmg_google_docs(id, callback) {
             entryLink = "<a href='" + entry['Link'] + "' target='_blank'>Website</a>"
          }
          var titleId = "";
-         var entryLat = Math.round(parseFloat(entry['Latitude']) * 10000) / 10000;
-         var entryLon = Math.round(parseFloat(entry['Longitude']) * 10000) / 10000;
+         var entryLat = Math.round(parseFloat(entry['Latitude']) * 1000) / 1000;
+         var entryLon = Math.round(parseFloat(entry['Longitude']) * 1000) / 1000;
          var titleId = window.location.href.split('#')[0] + '#15/' + entryLat.toString() + '/' + entryLon.toString();
          var entryHref = "<h3 class='map-title'><a href='" + titleId + "'>" + entry['Title'] + "</a></h3>";
          var feature = {
