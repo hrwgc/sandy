@@ -6,6 +6,7 @@ function mmg_google_docs(id, callback) {
 	if (typeof reqwest === 'undefined') {
 		throw 'CSV: reqwest required for mmg_csv_url';
 	}
+
 	function response(x) {
 		var features = [],
 			latfield = '',
@@ -48,7 +49,7 @@ function mmg_google_docs(id, callback) {
 			} else {
 				entryLink = "<a href='" + entry['Link'] + "' target='_blank'>Website</a>"
 			}
-			var titleId = entry['Title'].replace(/[^A-Za-z0-9]/g, '-').replace(/\-+/g,'-').replace(/\-$/g,'').toLowerCase();
+			var titleId = entry['Title'].replace(/[^A-Za-z0-9]/g, '-').replace(/\-+/g, '-').replace(/\-$/g, '').toLowerCase();
 			var feature = {
 				geometry: {
 					type: 'Point',
@@ -109,9 +110,9 @@ mmg_google_docs('13OpCFyJDjWKJMqZt7kJSNmtKBX8WxShIfnbL4KU', function(features) {
 		var elem = mapbox.markers.simplestyle_factory(m);
 		MM.addEvent(elem, 'click', function(e) {
 			map.zoom(13).center({
-				lat: Math.round(m.geometry.coordinates[1] * 1000)/1000,
-				lon: Math.round(m.geometry.coordinates[0]*1000)/1000
-		            }).zoom(map.zoom()).optimal();
+				lat: Math.round(m.geometry.coordinates[1] * 1000) / 1000,
+				lon: Math.round(m.geometry.coordinates[0] * 1000) / 1000
+			}).zoom(map.zoom()).optimal();
 		});
 		return elem;
 	});
@@ -125,8 +126,8 @@ mmg_google_docs('13OpCFyJDjWKJMqZt7kJSNmtKBX8WxShIfnbL4KU', function(features) {
 			var m = $.sandyJSON.result
 			for (var i = 0; i < m.length; i++) {
 				var entry = m[i]
-				var entryLat = Math.round(entry.geometry.coordinates[1]*1000)/1000;
-				var entryLon = Math.round(entry.geometry.coordinates[0]*1000)/1000;
+				var entryLat = Math.round(entry.geometry.coordinates[1] * 1000) / 1000;
+				var entryLon = Math.round(entry.geometry.coordinates[0] * 1000) / 1000;
 				if (entryLat == eLat) {
 					if (entryLon == eLon) {
 						console.log(entry);
@@ -135,23 +136,24 @@ mmg_google_docs('13OpCFyJDjWKJMqZt7kJSNmtKBX8WxShIfnbL4KU', function(features) {
 							lat: eLat,
 							lon: eLon
 						});
-							// var ix = m.indexOf(entry)
-							// 						
-							// 						map.markerLayer.markers()[ix].showTooltip();
-											}
-			map.ui.hash.add();
-			map.zoom(eZoom).center({
-				lat: eLat,
-				lon: eLon
-			});
-			if (window.location.href.split('#')[1].replace(/\//g, "").replace(/\./g, "") == "00000") {
-				map.zoom(16).center({
-					lat: 40.7065,
-					lon: -74.0143
-				});
+						// var ix = m.indexOf(entry)
+						// 						
+						// 						map.markerLayer.markers()[ix].showTooltip();
+					}
+					map.ui.hash.add();
+					map.zoom(eZoom).center({
+						lat: eLat,
+						lon: eLon
+					});
+					if (window.location.href.split('#')[1].replace(/\//g, "").replace(/\./g, "") == "00000") {
+						map.zoom(16).center({
+							lat: 40.7065,
+							lon: -74.0143
+						});
+					}
+				}
 			}
+
 		}
 	}
-	
-}}
 });
