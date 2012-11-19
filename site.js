@@ -108,32 +108,15 @@ mmg_google_docs('13OpCFyJDjWKJMqZt7kJSNmtKBX8WxShIfnbL4KU', function(features) {
 	markerLayer.factory(function(m) {
 		var elem = mapbox.markers.simplestyle_factory(m);
 		MM.addEvent(elem, 'click', function(e) {
-			//map.ui.hash.remove()
 			map.zoom(13).center({
 				lat: Math.round(m.geometry.coordinates[1] * 1000)/1000,
 				lon: Math.round(m.geometry.coordinates[0]*1000)/1000
 		            }).zoom(map.zoom()).optimal();
-					//window.location.hash = m.properties.entryHref
 		});
 		return elem;
 	});
 	map.addLayer(markerLayer);
 	mapbox.markers.interaction(markerLayer).hideOnMove(false);
-	// var m = $.sandyJSON.result
-	// // if (window.location.href.split('#').length == 2) {
-	// // 	if (window.location.href.split('#')[1].split('/').length = 1) {
-	// // 		map.ui.hash.remove()
-	// 		var hash = window.location.href.split('#')[1]
-	// 
-	// 			if (hash == entry.properties['entryHref']) {
-	// 				map.zoom(15).center({
-	// 					lat: (Math.round(entry.geometry.coordinates[1]*1000)/1000),
-	// 					lon:  (Math.round(entry.geometry.coordinates[0]*1000)/1000)
-	// 				});
-	// 				var ix = m.indexOf(entry)
-	// 	}
-	// }
-	// 
 	if (window.location.hash.length != "") {
 		if (window.location.href.split('#')[1].split('/').length == 3) {
 			var eLat = window.location.href.split('#')[1].split('/')[1]
