@@ -10,8 +10,8 @@ function mmg_google_docs(id, callback) {
       if (!x || !x.data) return features;
       for (var i = 0; i < x.data.length; i++) {
          var entry = x.data[i];
-         if (entry['hide_on_map'] != 'yes') var symbol = "star-stroked";
-         var mc = "#333";
+         var symbol = "star-stroked";
+         var mc = "#777";
          var ms = "small";
          switch (entry['type marker']) {
          case "large_red":
@@ -64,10 +64,13 @@ function mmg_google_docs(id, callback) {
                "entryHref": entry['titleId']
             }
          };
+         if (entry['Show (0) / Hide (1)'] == '0')  {
          features.push(feature);
+        }
       }
       return callback(features);
    }
+
    var url = 'http://ft2json.appspot.com/q?sql=SELECT%20*%20FROM%20' + id + '&limit=150&jsonp=callback';
    $.ajax({
       url: url,
@@ -79,7 +82,7 @@ function mmg_google_docs(id, callback) {
 }
 var map = mapbox.map('map'),
    layers = document.getElementById('layers');
-map.addLayer(mapbox.layer().url('http://a.tiles.mapbox.com/v3/herwig.map-dlouakvr,geoeye.map-amysswvq,herwig.map-qjaygbf8.jsonp').composite(true));
+map.addLayer(mapbox.layer().url('http://a.tiles.mapbox.com/v3/examples.map-9pq5k9ic,geoeye.map-amysswvq,herwig.map-6wbq68qg.jsonp').composite(true));
 if (window.location.hash.length == 1) {
    if (window.location.href.split('#')[1].split('/').length == 3) {
       map.ui.hash.add();
@@ -115,7 +118,6 @@ mmg_google_docs('13OpCFyJDjWKJMqZt7kJSNmtKBX8WxShIfnbL4KU', function(features) {
    });
    map.addLayer(markerLayer);
    mapbox.markers.interaction(markerLayer).hideOnMove(false);
-
    if (window.location.hash.length != "") {
       if (window.location.href.split('#')[1].split('/').length == 3) {
          var eLat = window.location.href.split('#')[1].split('/')[1]
@@ -128,7 +130,6 @@ mmg_google_docs('13OpCFyJDjWKJMqZt7kJSNmtKBX8WxShIfnbL4KU', function(features) {
             var entryLon = Math.round(entry.location.lon * 1000) / 1000;
             if (entryLat == eLat) {
                if (entryLon == eLon) {
-                  console.log(entry);
                   map.ui.hash.add();
                   map.zoom(eZoom).center({
                      lat: eLat,
