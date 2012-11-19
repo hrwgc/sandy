@@ -100,7 +100,7 @@ if (window.location.hash.length == 0) {
 }
 
 mmg_google_docs('13OpCFyJDjWKJMqZt7kJSNmtKBX8WxShIfnbL4KU', function(features) {
-	features = features.map(function(f) {
+	features = _.map(features, function(f) {
 		f.properties.title = f.properties.title, f.properties.description = f.properties.description, f.properties.link = f.properties.link;
 		return f;
 	});
@@ -111,7 +111,7 @@ mmg_google_docs('13OpCFyJDjWKJMqZt7kJSNmtKBX8WxShIfnbL4KU', function(features) {
 			map.center({
 				lat: Math.round(m.geometry.coordinates[1]*1000)/1000,
 				lon: Math.round(m.geometry.coordinates[0]*1000)/1000
-		            }).zoom(map.zoom()).optimal();
+		            }).zoom(map.zoom());
 		});
 		return elem;
 	});
@@ -123,11 +123,11 @@ mmg_google_docs('13OpCFyJDjWKJMqZt7kJSNmtKBX8WxShIfnbL4KU', function(features) {
 			var eLat = window.location.href.split('#')[1].split('/')[1]
 			var eLon = window.location.href.split('#')[1].split('/')[2]
 			var eZoom = window.location.href.split('#')[1].split('/')[0].split('.')[0]
-			var m = $.sandyJSON.result
+			var m = markerLayer.markers()
 			for (var i = 0; i < m.length; i++) {
 				var entry = m[i]
-				var entryLat = Math.round(entry.geometry.coordinates[1]*1000)/1000;
-				var entryLon = Math.round(entry.geometry.coordinates[0]*1000)/1000;
+				var entryLat = Math.round(entry.location.lat*1000)/1000;
+				var entryLon = Math.round(entry.location.lon*1000)/1000;
 				if (entryLat == eLat) {
 					if (entryLon == eLon) {
 						console.log(entry);
@@ -136,7 +136,7 @@ mmg_google_docs('13OpCFyJDjWKJMqZt7kJSNmtKBX8WxShIfnbL4KU', function(features) {
 							lat: eLat,
 							lon: eLon
 						});
-						// trigger showTooltip() here
+                      entry.showTooltip();
 					}
 					}
 					
