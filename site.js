@@ -4,16 +4,37 @@ function mmg_google_docs(id, callback) {
    }
 
    function response(x) {
-      var features = [],
+    console.log(x);
+
+ 
+    var features = [],
          latfield = '',
          lonfield = '';
-      if (!x || !x.data) return features;
-      for (var i = 0; i < x.data.length; i++) {
-         var entry = x.data[i];
+      if (!x || !x.rows) return features;
+      for (var i = 0; i < x.rows.length; i++) {
+         var entry = x.rows[i];
+       	var timeStamp = entry[0];
+		var hideOnMap = entry[1];
+		var title = entry[2];
+		var address = entry[3];
+		var dateAndTimes = entry[4];
+		var description = entry[5];
+		var status = entry[6];
+		var link = entry[7];
+		var contactInfo = entry[8];
+		var region = entry[9];
+		var state = entry[10];
+		var latitude = entry[11];
+		var longitude = entry[12];
+		var ignoreTimestamp = entry[13];
+		var type = entry[14];
+		var typeMarker = entry[15];
+		var showHide = entry[16];
+		var defaultUrgent = entry[17];
          var symbol = "star-stroked";
          var mc = "#777";
          var ms = "small";
-         switch (entry['type marker']) {
+         switch (typeMarker) {
          case "large_red":
             mc = "#da521f";
             break;
@@ -40,42 +61,44 @@ function mmg_google_docs(id, callback) {
             break;
          }
          var entryLink = "";
-         if (entry['Link'].length < 4) {
+         if (link.length < 4) {
             entryLink = "";
          } else {
-            entryLink = "<a href='" + entry['Link'] + "' target='_blank'>Website</a>"
+            link = "<a href='" + entry['Link'] + "' target='_blank'>Website</a>"
          }
          var titleId = "";
-         var entryLat = Math.round(parseFloat(entry['Latitude']) * 1000) / 1000;
-         var entryLon = Math.round(parseFloat(entry['Longitude']) * 1000) / 1000;
+         var entryLat = Math.round(parseFloat(latitude) * 1000) / 1000;
+         var entryLon = Math.round(parseFloat(longitude) * 1000) / 1000;
          var titleId = window.location.href.split('#')[0] + '#15/' + entryLat.toString() + '/' + entryLon.toString();
-         var entryHref = "<h3 class='map-title'><a href='" + titleId + "'>" + entry['Title'] + "</a></h3>";
+         var entryHref = "<h3 class='map-title'><a href='" + titleId + "'>" + title + "</a></h3>";
          var feature = {
             geometry: {
                type: 'Point',
-               coordinates: [parseFloat(entry['Longitude']), parseFloat(entry['Latitude'])]
+               coordinates: [parseFloat(longitude), parseFloat(latitude)]
             },
             properties: {
                "marker-color": mc,
                "marker-size": ms,
                "marker-symbol": symbol,
                "title": entryHref,
-               "description": "<ul class='map'><li class='map address'><span>Address: </span>" + entry['Address'] + "</li>" + "<li class='map desc'><span>Description: </span>" + entry['Description'] + "</li>" + "<li class='map link'><span>Link: </span>" + entryLink + "</li>" + "<li class='map dateandtime'><span>Date and Times: </span>" + entry['DateAndTimes'] + "</li>" + "<li class='map contact'><span>Contact: </span>" + entry['Contact'] + "</li>" + "<li class='map status'><span></span>" + entry['Status'] + "</li>" + "<li class='map timestamp'><span>Last Updated: </span>" + entry['Timestamp'] + "</li></ul>" + "<div class='navId hidden' id ='" + titleId + "'></div",
-               "entryHref": entry['titleId']
+               "description": "<ul class='map'><li class='map address'><span>Address: </span>" + address + "</li>" + "<li class='map desc'><span>Description: </span>" + description + "</li>" + "<li class='map link'><span>Link: </span>" + entryLink + "</li>" + "<li class='map dateandtime'><span>Date and Times: </span>" + dateAndTimes + "</li>" + "<li class='map contact'><span>Contact: </span>" + contactInfo + "</li>" + "<li class='map status'><span></span>" + status + "</li>" + "<li class='map timestamp'><span>Last Updated: </span>" + timeStamp + "</li></ul>" + "<div class='navId hidden' id ='" + titleId + "'></div",
+               "entryHref": titleId
             }
          };
-         if (entry['Show (0) / Hide (1)'] == '0')  {
+         if (showHide != '1')  {
          features.push(feature);
         }
+//		$('.grid').append("<div class='col-1-3'>" + title + "</div>")
+
       }
       return callback(features);
    }
-
-   var url = 'http://ft2json.appspot.com/q?sql=SELECT%20*%20FROM%20' + id + '&limit=150&jsonp=callback';
+   var key = "AIzaSyATjmrN-_hALhmD62zhZLh4EanrmwT-mjE"
+   var url = 'https://www.googleapis.com/fusiontables/v1/query?sql=SELECT%20*%20FROM%20' + id + '&key=' + key + '&typed=false&callback=jsonp';
    $.ajax({
       url: url,
       dataType: 'jsonp',
-      jsonpCallback: 'callback',
+      jsonpCallback: 'jsonp',
       success: response,
       error: response
    });
