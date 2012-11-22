@@ -17,7 +17,12 @@ function mmg_google_docs(id, callback) {
 			var address = entry[3];
 			var dateAndTimes = entry[4];
 			var description = entry[5];
-			var status = entry[6];
+			if (entry[6].replace(/ /g, "") != "") {
+				var status =  "<h5 class='cardStatus'>" + entry[6] + "</h5>";
+			}
+			else {
+				status = "";
+			}			
 			var link = entry[7];
 			var contactInfo = entry[8];
 			var region = entry[9].toLowerCase().replace(/ /g, '-');
@@ -32,36 +37,39 @@ function mmg_google_docs(id, callback) {
 			var symbol = "star-stroked";
 			var mc = "#777";
 			var ms = "small";
-			switch (typeMarker) {
-			case "large_red":
+			switch (type) {
+			case "main distribution center":
 				mc = "#da521f";
 				break;
-			case "large_green":
+			case "drop-off only":
 				// change color to green
 				mc = "#22b573";
 				break;
-			case "large_blue":
+			case "volunteer drop-off":
+			    mc = "#00a99d";
+			    break;
+			case "volunteer only":
 				// change color to blue
 				mc = "#0085bf";
 				break;
-			case "large_purple":
+			case "meals":
 				// change color to purple
 				mc = "#60f";
 				break;
+			}
+			switch (typeMarker) {
 			case "dining":
 				symbol = "restaurant";
 				mc = "#ffcd67";
 				break;
 			case "rail":
 				symbol = "bus";
-				ms = "medium";
 				mc = "#ffcc00";
 				break;
 			}
-			var entry = x.rows[i];
 			var status = entry[6];
 			var defaultUrgent = entry[17];
-			var region = entry[9].toLowerCase();
+			var region = entry[9].toLowerCase().replace(/ /g, '-');
 			var state = entry[10];
 			var latitude = entry[11];
 			var longitude = entry[12];
@@ -85,7 +93,7 @@ function mmg_google_docs(id, callback) {
 			if (entry[5].replace(/ /g, '') == "") {
 				var description = "";
 			} else {
-				var description = +"<p class='cardDetails'><span>Details:</span> " + entry[5] + "</p>";
+				var description = "<p class='cardDetails'><span>Details:</span> " + entry[5] + "</p>";
 			}
 
 			if (entry[7].replace(/ /g, '') == "") {
@@ -134,8 +142,7 @@ function mmg_google_docs(id, callback) {
 					"marker-color": mc,
 					"marker-size": ms,
 					"marker-symbol": symbol,
-					"title": entryHref,
-					"description": "<div class='card " + type + " region-" + region + " state-" + state + " isotope-item' style='position: absolute; left: 0px; top: 0px;'>" + "<h5 class='cardType'>" + type + "<span class='stateface stateface-replace stateface-" + state.toLowerCase() + "'></span></h5>" + title + address + timeStamp + description + link + "</div>",
+					"title": "<div class='" + type.replace(/drop-off/g,'dropoff').replace(/meals/g,'food').replace(/dining/g,'food').replace(/ /g,' and ') + " region-" + region + " state-" + state + " isotope-item'>" + "<h5 class='cardType'>" + type + "<span class='stateface stateface-replace stateface-" + state.toLowerCase() + "'></span></h5>" + entryHref + address + timeStamp + description + link + "</div>",
 					"entryHref": titleId
 				}
 			};
@@ -179,7 +186,8 @@ if (window.location.hash.length == 0) {
 
 mmg_google_docs('13OpCFyJDjWKJMqZt7kJSNmtKBX8WxShIfnbL4KU', function(features) {
 	features = _.map(features, function(f) {
-		f.properties.title = f.properties.title, f.properties.description = f.properties.description, f.properties.link = f.properties.link;
+		// f.properties.title = f.properties.title, 
+		f.properties.title = f.properties.title
 		return f;
 	});
 	var markerLayer = mapbox.markers.layer().features(features);

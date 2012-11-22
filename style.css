@@ -1,150 +1,161 @@
 /* ###### Basics ###### */
 
 body {
-  font: normal 16px/1.5 'Helvetica Neue',Helvetica,sans-serif;
-  color:white;
-  }
-
-h1 {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 15px;
-  }
-
-p, ul {
-  margin-bottom: 15px;
-  }
-
-.description li {
-  margin-left: 20px;
-  margin-bottom: 5px;
-  list-style: disc;
+font: normal 16px/1.5 'Helvetica Neue',Helvetica,sans-serif;
+color: white;
 }
 
-a {
-  color: white;
-  font-weight: bold;
-  text-decoration: none;
-  }
+h1 {
+font-size: 20px;
+font-weight: bold;
+margin-bottom: 15px;
+}
 
-a:hover { text-decoration: underline;}
+p, ul {
+margin-bottom: 15px;
+}
+
+.description li {
+margin-left: 20px;
+margin-bottom: 5px;
+list-style: disc;
+}
+
+a:hover {
+text-decoration: underline;
+}
 
 #map {
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-bottom:0;
-/*  height:700px;
-*/  z-index: 0;
-  }
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+z-index: 0;
+}
 
 /* ###### Content Box ###### */
 
 #description.button.map {
-  position: absolute;
-  right: 5px;
-  bottom: 5px;
-  z-index: 1;
-  padding:4px;
-  height:50px;
-  background:#fff;
+position: absolute;
+right: 5px;
+bottom: 5px;
+z-index: 1;
+padding: 4px;
+height: 50px;
+background: #fff;
 -webkit-box-shadow: 0px 2px 16px rgba(20, 20, 20, 0.3);
--moz-box-shadow:    0px 2px 16px rgba(20, 20, 20, 0.3);
-box-shadow:         0px 2px 16px rgba(20, 20, 20, 0.3);
+-moz-box-shadow: 0px 2px 16px rgba(20, 20, 20, 0.3);
+box-shadow: 0px 2px 16px rgba(20, 20, 20, 0.3);
 }
 
-#description.map h3{
-   padding:4px;
-   margin:4px;
+#description.map h3 {
+padding: 4px;
+margin: 4px;
+font-weight:700;
+padding:7px;
 }
 
 div.attribution {
-  position:absolute;
-  background-color:rgba(255, 255, 255, 0.7);
-  color:#333;
-  font-size:11px;
-  line-height:20px;
-  z-index:99999;
-  text-align:center;
-  padding:0 5px;
-  bottom:0;
-  left:0;
-  }
+position: absolute;
+background-color: rgba(255, 255, 255, 0.7);
+color: #333;
+font-size: 11px;
+line-height: 20px;
+z-index: 99999;
+text-align: center;
+padding: 0 5px;
+bottom: 0;
+left: 0;
+}
 
 .description::-webkit-scrollbar-thumb,
 .description::scrollbar-thumb {
-  background: white;
+background: white;
 }
 .description::-webkit-scrollbar,
 .description::scrollbar {
 background: transparent;
 width: 10px;
-  }
+}
 
 
-.zoombox-box { background-color:#fff}
+.zoombox-box {
+background-color: #fff
+}
 
 .zoomer {
-  top:15px;
-  left: 15px;
+top: 15px;
+left: 15px;
 }
-.zoomin { left: 44px;}
-
+.zoomin {
+left: 44px;
+}
 
 .marker-popup {
-  border: none !important;
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
+border: none !important;
+-webkit-box-shadow: none !important;
+box-shadow: none !important;
 }
 .marker-popup::before {
-  border-top-color: white !important;
-  border-width: 18px;
-  margin-left: -18px;
-  }
-li.map { 
-	font-size:13px;
-	}
-li.map span { 
-	font-weight:600;
-	}
+border-top-color: white !important;
+border-width: 18px;
+margin-left: -18px;
+}
+li.map {
+font-size: 13px;
+}
+li.map span {
+font-weight: 600;
+}
 	
-ul.map { 
-	list-style-type:none;}
+ul.map {
+list-style-type: none;
+}
 
-	* {
-	  @include box-sizing(border-box);
-	}
-
-	$pad: 20px;
-
-	.grid {
-	  background: white;
-	  margin: 0 0 $pad 0;
-
-	  &:after {
-	    /* Or @extend clearfix */
-	    content: "";
-	    display: table;
-	    clear: both;
-	  }
-	}
-
-	[class*='col-'] {
-	  float: left;
-	  padding-right: $pad;
-	  .grid &:last-of-type {
-	    padding-right: 0;
-	  }
-	}
-	.col-1-3 {
-	  width: 33.33%;
-	}
-
-	/* Opt-in outside padding */
-	.grid-pad {
-	  padding: $pad 0 $pad $pad;
-	  [class*='col-']:last-of-type {
-	    padding-right: $pad;
-	  }
-	}
+	.marker-popup {
+max-height: 700px;
+max-width: 500px;
+}
+  .marker-popup {
+float: left;
+width: auto;
+margin: 0 0 0 0;
+padding: 0 15px 10px ;
+background: #fff;
+box-shadow: 3px 3px 25px -10px #000
+}
+	div.marker-popup h1, 	div.marker-popup h2,	div.marker-popup h5, div.marker-popup p {
+margin-top: 0!important;
+margin-bottom: 10px!important;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+	div.marker-popup span {
+font-family: "Open Sans","Lucida Grande","Lucida Sans",sans-serif;
+font-weight: normal;
+font-style: normal;
+text-transform: uppercase;
+letter-spacing: 1px;
+line-height: 1.2em;
+font-size: 12px;
+color: #222
+}
+	div.marker-popup .stateface {
+float: right;
+color: #fff;
+font-size: 27px;
+text-transform: none;
+margin-top: 1px;
+margin-right: -5px
+}
+h2 a {
+font-family: "LeagueGothicRegular","Arial Narrow","Lucida Grande","Lucida Sans",Arial,sans-serif;
+font-weight: 400;
+text-transform: uppercase;
+letter-spacing: 1px;
+line-height: 0.8em;
+padding-top: 4px;
+margin-top: 5px!important;
+font-size:22px;
+}
