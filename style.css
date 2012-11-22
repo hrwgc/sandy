@@ -114,8 +114,8 @@ list-style-type: none;
 }
 
 	.marker-popup {
-max-height: 700px;
-max-width: 500px;
+max-height: 550px;
+max-width: 550px;
 }
   .marker-popup {
 float: left;
@@ -130,6 +130,11 @@ margin-top: 0!important;
 margin-bottom: 10px!important;
 overflow: hidden;
 text-overflow: ellipsis;
+}
+p.cardDetails {
+	max-height:300px;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 	div.marker-popup span {
 font-family: "Open Sans","Lucida Grande","Lucida Sans",sans-serif;

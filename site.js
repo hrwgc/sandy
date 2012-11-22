@@ -3,8 +3,6 @@ function mmg_google_docs(id, callback) {
 		throw 'CSV: reqwest required for mmg_csv_url';
 	}
 	function response(x) {
-		console.log(x);
-
 		var features = [],
 			latfield = '',
 			lonfield = '';
@@ -48,7 +46,7 @@ function mmg_google_docs(id, callback) {
 			case "volunteer drop-off":
 			    mc = "#00a99d";
 			    break;
-			case "volunteer only":
+			case "volunteer":
 				// change color to blue
 				mc = "#0085bf";
 				break;
@@ -88,7 +86,7 @@ function mmg_google_docs(id, callback) {
 			if (entry[4].replace(/ /g, '') == "") {
 				var dateAndTimes = "";
 			} else {
-				var dateAndTimes = +"<h5 class='cardTimes'><span>Times:</span> " + entry[4] + "</h5>";
+				var dateAndTimes = "<h5 class='cardTimes'><span>Times:</span> " + entry[4] + "</h5>";
 			}
 			if (entry[5].replace(/ /g, '') == "") {
 				var description = "";
@@ -142,11 +140,10 @@ function mmg_google_docs(id, callback) {
 					"marker-color": mc,
 					"marker-size": ms,
 					"marker-symbol": symbol,
-					"title": "<div class='" + type.replace(/drop-off/g,'dropoff').replace(/meals/g,'food').replace(/dining/g,'food').replace(/ /g,' and ') + " region-" + region + " state-" + state + " isotope-item'>" + "<h5 class='cardType'>" + type + "<span class='stateface stateface-replace stateface-" + state.toLowerCase() + "'></span></h5>" + entryHref + address + timeStamp + description + link + "</div>",
+					"title": "<div class='" + type.replace(/drop-off/g,'dropoff').replace(/meals/g,'food').replace(/dining/g,'food').replace(/main distribution center/g, 'hub') + " region-" + region + " state-" + state + " isotope-item'>" + "<h5 class='cardType'>" + type + "<span class='stateface stateface-replace stateface-" + state.toLowerCase() + "'></span></h5>" + entryHref + address + timeStamp + description + dateAndTimes + contactInfo + link + "</div>",
 					"entryHref": titleId
 				}
 			};
-			console.log(feature)
 			if (showHide != '1') {
 				features.push(feature);
 				}
