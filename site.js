@@ -140,7 +140,7 @@ function mmg_google_docs(id, callback) {
 					"marker-color": mc,
 					"marker-size": ms,
 					"marker-symbol": symbol,
-					"title": "<div class='" + type.replace(/drop-off/g,'dropoff').replace(/meals/g,'food').replace(/dining/g,'food').replace(/main distribution center/g, 'hub') + " region-" + region + " state-" + state + " isotope-item'>" + "<h5 class='cardType'>" + type + "<span class='stateface stateface-replace stateface-" + state.toLowerCase() + "'></span></h5>" + entryHref + address + timeStamp + description + dateAndTimes + contactInfo + link + "</div>",
+					"title": "<div class='" + type.replace(/drop-off/g,'dropoff').replace(/meals/g,'unknown').replace(/dining/g,'unknown').replace(/main distribution center/g, 'hub') + " region-" + region + " state-" + state + " isotope-item'>" + "<h5 class='cardType'>" + type + "<span class='stateface stateface-replace stateface-" + state.toLowerCase() + "'></span></h5>" + entryHref + address + timeStamp + description + dateAndTimes + contactInfo + link + "</div>",
 					"entryHref": titleId
 				}
 			};
