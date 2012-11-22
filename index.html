@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
     <title>Hurricane Sandy</title>
-<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700" rel="stylesheet" type="text/css">
+	<link rel="icon" type="image/png" href="http://interoccupy.net/wp-content/uploads/2012/07/IO-favicon.png">
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700" rel="stylesheet" type="text/css">
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'></script>
     <script src='http://api.tiles.mapbox.com/mapbox.js/v0.6.6/mapbox.js'></script>
     <script src='http://underscorejs.org/underscore-min.js'></script>
     <link href='http://api.tiles.mapbox.com/mapbox.js/v0.6.6/mapbox.css' rel='stylesheet' />
     <link href='reset.css' rel='stylesheet' />
     <link href='style.css' rel='stylesheet' />
-    <link href='http://interoccupy.net/occupysandy/wp-content/themes/sandy/css/style.css' rel='stylesheet' />
-
+	<link rel="stylesheet" type="text/css" media="all" href="http://interoccupy.net/occupysandy/wp-content/themes/sandy/css/style.css">
   </head>
 
   <body>
-    <div id='description' class='button map'>
-         <h3><a href="http://interoccupy.net/occupysandy">#OccupySandy</a></h3>
-	
+
+    <div id='map'>
+	    <div id='description' class='button map'>
+	         <h3><a href="http://interoccupy.net/occupysandy">#OccupySandy</a></h3>
+
+	    </div><div class='attribution'><a href="http://noaa.gov">NOAA</a> Post-Event Imagery captured 10/31/12 - 11/6/12 hosted by <a href="http://mapbox.com">MapBox</a></div>	
     </div>
-	    <div class='attribution'><a href="http://noaa.gov">NOAA</a> Post-Event Imagery captured 10/31/12 - 11/6/12 hosted by <a href="http://mapbox.com">MapBox</a></div>	
-    <div id='map'></div>
+	</div>
   <script src='site.js'></script>
   </body>
 </html>
