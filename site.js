@@ -161,10 +161,11 @@ function mmg_google_docs(id, callback) {
 		error: response
 	});
 }
-var map = mapbox.map('map'),
-	layers = document.getElementById('layers');
-map.addLayer(mapbox.layer().url('http://a.tiles.mapbox.com/v3/examples.map-9pq5k9ic,geoeye.map-amysswvq,herwig.map-6wbq68qg.jsonp').composite(true));
-map.addLayer(mapbox.layer().url('http://a.tiles.mapbox.com/v3/herwig.nyc-subway.jsonp').composite(false));
+var map = mapbox.map('map');
+mapbox.load('examples.map-9pq5k9ic,geoeye.map-amysswvq,herwig.map-6wbq68qg,herwig.nyc-subway', function(o) {
+    map.addLayer(o.layer).interaction.auto();
+});
+
 if (window.location.hash.length == 1) {
 	if (window.location.href.split('#')[1].split('/').length == 3) {
 		map.ui.hash.add();
