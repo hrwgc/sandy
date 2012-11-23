@@ -1,0 +1,123 @@
+.subway {
+	background:url('http://localhost:4000/img/subway-sprite.png') no-repeat top left; display:inline-block;
+}
+.subway#1 {
+	background-position:0 -0px;
+	width: 27px;
+	height: 27px;
+}
+.subway#2 {
+	background-position:0 -27px;
+	width: 27px;
+	height: 27px;
+}
+.subway#3 {
+	background-position:0 -54px;
+	width: 27px;
+	height: 27px;
+}
+.subway#4 {
+	background-position:0 -81px;
+	width: 27px;
+	height: 27px;
+}
+.subway#5 {
+	background-position:0 -108px;
+	width: 27px;
+	height: 27px;
+}
+.subway#6 {
+	background-position:0 -135px;
+	width: 27px;
+	height: 27px;
+}
+.subway#7 {
+	background-position:0 -162px;
+	width: 27px;
+	height: 27px;
+}
+.subway#A {
+	background-position:0 -189px;
+	width: 27px;
+	height: 27px;
+}
+.subway#B {
+	background-position:0 -216px;
+	width: 27px;
+	height: 27px;
+}
+.subway#C {
+	background-position:0 -243px;
+	width: 27px;
+	height: 27px;
+}
+.subway#D {
+	background-position:0 -270px;
+	width: 27px;
+	height: 27px;
+}
+.subway#E {
+	background-position:0 -297px;
+	width: 27px;
+	height: 27px;
+}
+.subway#F {
+	background-position:0 -324px;
+	width: 27px;
+	height: 27px;
+}
+.subway#G {
+	background-position:0 -351px;
+	width: 27px;
+	height: 27px;
+}
+.subway#J {
+	background-position:0 -378px;
+	width: 27px;
+	height: 27px;
+}
+.subway#L {
+	background-position:0 -405px;
+	width: 27px;
+	height: 27px;
+}
+.subway#M {
+	background-position:0 -432px;
+	width: 27px;
+	height: 27px;
+}
+.subway#N {
+	background-position:0 -459px;
+	width: 27px;
+	height: 27px;
+}
+.subway#Q {
+	background-position:0 -486px;
+	width: 27px;
+	height: 27px;
+}
+.subway#R {
+	background-position:0 -513px;
+	width: 27px;
+	height: 27px;
+}
+.subway#S {
+	background-position:0 -540px;
+	width: 27px;
+	height: 27px;
+}
+.subway#V {
+	background-position:0 -567px;
+	width: 27px;
+	height: 27px;
+}
+.subway#W {
+	background-position:0 -594px;
+	width: 27px;
+	height: 27px;
+}
+.subway#Z {
+	background-position:0 -621px;
+	width: 27px;
+	height: 27px;
+}
