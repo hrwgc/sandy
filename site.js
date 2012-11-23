@@ -163,7 +163,8 @@ function mmg_google_docs(id, callback) {
 }
 var map = mapbox.map('map'),
 	layers = document.getElementById('layers');
-map.addLayer(mapbox.layer().url('http://a.tiles.mapbox.com/v3/examples.map-9pq5k9ic,geoeye.map-amysswvq,herwig.map-6wbq68qg.jsonp').composite(false));
+map.addLayer(mapbox.layer().url('http://a.tiles.mapbox.com/v3/examples.map-9pq5k9ic,geoeye.map-amysswvq,herwig.map-6wbq68qg,.jsonp').composite(false));
+mapbox.auto('map', 'http://a.tiles.mapbox.com/v3/herwig.nyc-subway-int.jsonp');
 if (window.location.hash.length == 1) {
 	if (window.location.href.split('#')[1].split('/').length == 3) {
 		map.ui.hash.add();
@@ -172,7 +173,8 @@ if (window.location.hash.length == 1) {
 map.ui.zoomer.add();
 map.ui.zoombox.add();
 map.ui.attribution.add();
-map.setZoomRange(10, 19);
+map.interaction.auto();
+map.setZoomRange(10, 18);
 if (window.location.hash.length == 0) {
 	map.ui.hash.add();
 	map.zoom(16).center({

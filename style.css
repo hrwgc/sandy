@@ -167,3 +167,7 @@ font-size:22px;
 .cardType, .cardAddress {
 	font-size:13px;
 }
+.marker-tooltip {
+	z-index:000000;
+	pointer-events:all;
+}
