@@ -61,12 +61,17 @@ position: absolute;
 background-color: rgba(255, 255, 255, 0.7);
 color: #333;
 font-size: 11px;
-line-height: 20px;
+line-height: auto;
 z-index: 99999;
-text-align: center;
 padding: 0 5px;
 bottom: 0;
 left: 0;
+max-width:50%;
+}
+div.attribution p {
+	line-height:auto;
+	margin-bottom:0;
+	padding-bottom:0;
 }
 
 .description::-webkit-scrollbar-thumb,
@@ -75,7 +80,7 @@ background: white;
 }
 .description::-webkit-scrollbar,
 .description::scrollbar {
-background: transparent;
+background: black;
 width: 10px;
 }
 
@@ -114,8 +119,8 @@ list-style-type: none;
 }
 
 	.marker-popup {
-max-height: 550px;
-max-width: 550px;
+max-height: 400px;
+max-width: 450px;
 }
   .marker-popup {
 float: left;
@@ -132,7 +137,7 @@ overflow: hidden;
 text-overflow: ellipsis;
 }
 p.cardDetails {
-	max-height:300px;
+	max-height:250px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
@@ -164,10 +169,80 @@ padding-top: 4px;
 margin-top: 5px!important;
 font-size:22px;
 }
+a {
+	color:#0085bf;
+}
 .cardType, .cardAddress {
 	font-size:13px;
 }
 .marker-tooltip {
 	z-index:000000;
 	pointer-events:all;
+}
+
+.map-tooltip .map-tooltip-0 .wax-tooltip {
+	max-width:150px;
+	height:150px;
+}
+
+h5.route {
+  font-family: "Open Sans","Lucida Grande","Lucida Sans",sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 1px;
+  line-height: 1.2em;
+  font-size: 12px;
+  color: #222;
+  display:none;
+  padding-bottom:5px;
+  text-align:center;
+}
+.map-legends, .map-tooltip {
+  min-width: 100px;
+  max-width: 280px;
+  min-height:30px;
+  width: auto;
+  max-height:100px;
+  padding:5px;
+padding-bottom:0;
+  height:auto;
+}
+.weekend {
+	display:none;
+}
+.off-peak{
+	display:none;
+}
+h2.name_cur.cardName {
+	margin-top:0 !important;
+}
+.map-legends ul, .map-tooltip ul {
+	margin-bottom:0;
+	padding-bottom:0;
+}
+.subway {
+	margin-bottom:0;
+	padding-bottom:0;
+	padding-top:5px;
+	
+}
+div.isotope-item h5, div.isotope-item h2 {
+	margin-bottom:3px !important;
+}
+div.isotope-item p {
+	overflow: auto;
+	max-height:100px;
+	line-height:1.2em;
+	margin-bottom:2px !important;
+}
+h3 {
+	font-family: "Open Sans","Lucida Grande","Lucida Sans",sans-serif;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 14px;
+	line-height: 1.5em;
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	color: #222;
 }

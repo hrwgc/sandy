@@ -91,7 +91,7 @@ function mmg_google_docs(id, callback) {
 			if (entry[5].replace(/ /g, '') == "") {
 				var description = "";
 			} else {
-				var description = "<p class='cardDetails'><span>Details:</span> " + entry[5] + "</p>";
+				var description = "<p class='cardDetails'><span>Details:</span> " + entry[5].replace(/<\/p>/g,'<br>').replace(/<p>/g,'').replace(/\n{1,}/g,'<br>').replace(/<(\/*)h3>Transportation<(\/*)h3>/g,'<span>Transportation</span>') + "</p>";
 			}
 
 			if (entry[7].replace(/ /g, '') == "") {
@@ -122,7 +122,7 @@ function mmg_google_docs(id, callback) {
 				var title = entry[2];
 			}
 			var titleId = "";
-			var entryLat = Math.round(parseFloat(latitude) * 1000) / 1000;
+			var entryLat = (Math.round(parseFloat(latitude) * 1000) / 1000) + 0.007;
 			var entryLon = Math.round(parseFloat(longitude) * 1000) / 1000;
 			var titleId = window.location.href.split('#')[0] + '#15/' + entryLat.toString() + '/' + entryLon.toString();
 			var entryHref = "";
@@ -175,7 +175,7 @@ map.ui.zoomer.add();
 map.ui.zoombox.add();
 map.ui.attribution.add();
 map.interaction.auto();
-map.setZoomRange(10, 18);
+map.setZoomRange(10, 17);
 if (window.location.hash.length == 0) {
 	map.ui.hash.add();
 	map.zoom(16).center({
@@ -195,7 +195,7 @@ mmg_google_docs('13OpCFyJDjWKJMqZt7kJSNmtKBX8WxShIfnbL4KU', function(features) {
 		var elem = mapbox.markers.simplestyle_factory(m);
 		MM.addEvent(elem, 'click', function(e) {
 			map.center({
-				lat: Math.round(m.geometry.coordinates[1] * 1000) / 1000,
+				lat: (Math.round(m.geometry.coordinates[1] * 1000) / 1000) +0.007,
 				lon: Math.round(m.geometry.coordinates[0] * 1000) / 1000
 			}).zoom(map.zoom());
 		});
@@ -211,7 +211,7 @@ mmg_google_docs('13OpCFyJDjWKJMqZt7kJSNmtKBX8WxShIfnbL4KU', function(features) {
 			var m = markerLayer.markers()
 			for (var i = 0; i < m.length; i++) {
 				var entry = m[i]
-				var entryLat = Math.round(entry.location.lat * 1000) / 1000;
+				var entryLat = (Math.round(entry.location.lat * 1000) / 1000) +0.007;
 				var entryLon = Math.round(entry.location.lon * 1000) / 1000;
 				if (entryLat == eLat) {
 					if (entryLon == eLon) {
